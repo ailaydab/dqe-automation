@@ -1,0 +1,1319 @@
+=== 1. INSTALL STAGE ===
+Requirement already satisfied: pytest>7.0.0 in /workspaces/dqe-automation/.venv/lib/python3.14/site-packages (from -r requirements.txt (line 1)) (9.1.1)
+Requirement already satisfied: pandas>2.0.0 in /workspaces/dqe-automation/.venv/lib/python3.14/site-packages (from -r requirements.txt (line 2)) (3.0.6)
+Requirement already satisfied: psycopg2-binary>2.9.0 in /workspaces/dqe-automation/.venv/lib/python3.14/site-packages (from -r requirements.txt (line 3)) (2.9.13)
+Requirement already satisfied: pyarrow>12.0.0 in /workspaces/dqe-automation/.venv/lib/python3.14/site-packages (from -r requirements.txt (line 4)) (26.0.0)
+Requirement already satisfied: iniconfig>=1.0.1 in /workspaces/dqe-automation/.venv/lib/python3.14/site-packages (from pytest>7.0.0->-r requirements.txt (line 1)) (2.3.1)
+Requirement already satisfied: packaging>=22 in /workspaces/dqe-automation/.venv/lib/python3.14/site-packages (from pytest>7.0.0->-r requirements.txt (line 1)) (26.3)
+Requirement already satisfied: pluggy<2,>=1.5 in /workspaces/dqe-automation/.venv/lib/python3.14/site-packages (from pytest>7.0.0->-r requirements.txt (line 1)) (1.7.0)
+Requirement already satisfied: pygments>=2.7.2 in /workspaces/dqe-automation/.venv/lib/python3.14/site-packages (from pytest>7.0.0->-r requirements.txt (line 1)) (2.21.0)
+Requirement already satisfied: numpy>=2.3.3 in /workspaces/dqe-automation/.venv/lib/python3.14/site-packages (from pandas>2.0.0->-r requirements.txt (line 2)) (2.5.4)
+Requirement already satisfied: python-dateutil>=2.8.2 in /workspaces/dqe-automation/.venv/lib/python3.14/site-packages (from pandas>2.0.0->-r requirements.txt (line 2)) (2.9.0.post0)
+Requirement already satisfied: six>=1.5 in /workspaces/dqe-automation/.venv/lib/python3.14/site-packages (from python-dateutil>=2.8.2->pandas>2.0.0->-r requirements.txt (line 2)) (1.17.0)
+
+=== 2. PYTEST RUN STAGE ===
+============================= test session starts ==============================
+platform linux -- Python 3.14.2, pytest-9.1.1, pluggy-1.7.0 -- /workspaces/dqe-automation/.venv/bin/python
+cachedir: .pytest_cache
+metadata: {'Python': '3.14.2', 'Platform': 'Linux-6.8.0-1064-azure-x86_64-with-glibc2.39', 'Packages': {'pytest': '9.1.1', 'pluggy': '1.7.0'}, 'Plugins': {'Faker': '40.43.0', 'allure-pytest': '2.16.2', 'html': '4.2.0', 'metadata': '3.1.1'}, 'JAVA_HOME': '/usr/local/sdkman/candidates/java/current'}
+rootdir: /workspaces/dqe-automation/PyTest DQ Framework/tests
+configfile: pytest.ini
+plugins: Faker-40.43.0, allure-pytest-2.16.2, html-4.2.0, metadata-3.1.1
+collecting ... collected 15 items
+
+tests/dq checks/parquet_files/test_facility_name_min_time_spent_per_visit_date.py::test_smoke_and_not_empty FAILED [  6%]
+tests/dq checks/parquet_files/test_facility_name_min_time_spent_per_visit_date.py::test_completeness FAILED [ 13%]
+tests/dq checks/parquet_files/test_facility_name_min_time_spent_per_visit_date.py::test_count FAILED [ 20%]
+tests/dq checks/parquet_files/test_facility_name_min_time_spent_per_visit_date.py::test_uniqueness FAILED [ 26%]
+tests/dq checks/parquet_files/test_facility_name_min_time_spent_per_visit_date.py::test_not_null_values FAILED [ 33%]
+tests/dq checks/parquet_files/test_facility_type_avg_time_spent_per_visit_date.py::test_smoke_and_not_empty PASSED [ 40%]
+tests/dq checks/parquet_files/test_facility_type_avg_time_spent_per_visit_date.py::test_completeness FAILED [ 46%]
+tests/dq checks/parquet_files/test_facility_type_avg_time_spent_per_visit_date.py::test_count FAILED [ 53%]
+tests/dq checks/parquet_files/test_facility_type_avg_time_spent_per_visit_date.py::test_uniqueness PASSED [ 60%]
+tests/dq checks/parquet_files/test_facility_type_avg_time_spent_per_visit_date.py::test_not_null_values PASSED [ 66%]
+tests/dq checks/parquet_files/test_patient_sum_treatment_cost_per_facility_type.py::test_smoke_and_not_empty PASSED [ 73%]
+tests/dq checks/parquet_files/test_patient_sum_treatment_cost_per_facility_type.py::test_completeness FAILED [ 80%]
+tests/dq checks/parquet_files/test_patient_sum_treatment_cost_per_facility_type.py::test_count FAILED [ 86%]
+tests/dq checks/parquet_files/test_patient_sum_treatment_cost_per_facility_type.py::test_uniqueness PASSED [ 93%]
+tests/dq checks/parquet_files/test_patient_sum_treatment_cost_per_facility_type.py::test_not_null_values FAILED [100%]
+tests/dq checks/parquet_files/test_patient_sum_treatment_cost_per_facility_type.py::test_not_null_values ERROR [100%]
+
+==================================== ERRORS ====================================
+__________________ ERROR at teardown of test_not_null_values ___________________
+
+request = <SubRequest 'db_connection' for <Function test_count>>
+
+    @pytest.fixture(scope='session')
+    def db_connection(request):
+        db_host = request.config.getoption("--db_host")
+        db_name = request.config.getoption("--db_name")
+        db_user = request.config.getoption("--db_user")
+        db_password = request.config.getoption("--db_password")
+        db_port = int(request.config.getoption("--db_port"))
+        try:
+>           with PostgresConnectorContextManager(
+                db_host=db_host,
+                db_name=db_name,
+                db_user=db_user,
+                db_password=db_password,
+                db_port=db_port
+            ) as db_connector:
+E           TypeError: PostgresConnectorContextManager.__exit__() takes 1 positional argument but 4 were given
+
+tests/conftest.py:32: TypeError
+
+During handling of the above exception, another exception occurred:
+
+request = <SubRequest 'db_connection' for <Function test_count>>
+
+    @pytest.fixture(scope='session')
+    def db_connection(request):
+        db_host = request.config.getoption("--db_host")
+        db_name = request.config.getoption("--db_name")
+        db_user = request.config.getoption("--db_user")
+        db_password = request.config.getoption("--db_password")
+        db_port = int(request.config.getoption("--db_port"))
+        try:
+            with PostgresConnectorContextManager(
+                db_host=db_host,
+                db_name=db_name,
+                db_user=db_user,
+                db_password=db_password,
+                db_port=db_port
+            ) as db_connector:
+                yield db_connector
+        except Exception as e:
+>           pytest.fail(f"Failed to initialize PostgresConnectorContextManager: {e}")
+E           Failed: Failed to initialize PostgresConnectorContextManager: PostgresConnectorContextManager.__exit__() takes 1 positional argument but 4 were given
+
+tests/conftest.py:41: Failed
+=================================== FAILURES ===================================
+___________________________ test_smoke_and_not_empty ___________________________
+
+parquet_reader = <src.connectors.file_system.parquet_reader.ParquetReader object at 0x700a13456900>
+data_quality_library = <src.data_quality.data_quality_validation_library.DataQualityLibrary object at 0x700a1292d550>
+
+    @pytest.mark.parquet_data
+    def test_smoke_and_not_empty(parquet_reader, data_quality_library):
+        target_path =  "/workspaces/dqe-automation/parquet_data/test_facility_name_min_time_spent_per_visit_date"
+>       target_data = parquet_reader.process(target_path)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/dq checks/parquet_files/test_facility_name_min_time_spent_per_visit_date.py:12: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+src/connectors/file_system/parquet_reader.py:10: in process
+    return pd.read_parquet(file_path)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+../.venv/lib/python3.14/site-packages/pandas/io/parquet.py:671: in read_parquet
+    return impl.read(
+../.venv/lib/python3.14/site-packages/pandas/io/parquet.py:253: in read
+    path_or_handle, handles, filesystem = _get_path_or_handle(
+../.venv/lib/python3.14/site-packages/pandas/io/parquet.py:141: in _get_path_or_handle
+    handles = get_handle(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+path_or_buf = '/workspaces/dqe-automation/parquet_data/test_facility_name_min_time_spent_per_visit_date'
+mode = 'rb', encoding = 'utf-8', compression = None, memory_map = False
+is_text = False, errors = 'strict', storage_options = None
+
+    def get_handle(
+        path_or_buf: FilePath | BaseBuffer,
+        mode: str,
+        *,
+        encoding: str | None = None,
+        compression: CompressionOptions | None = None,
+        memory_map: bool = False,
+        is_text: bool = True,
+        errors: str | None = None,
+        storage_options: StorageOptions | None = None,
+    ) -> IOHandles[str] | IOHandles[bytes]:
+        """
+        Get file handle for given path/buffer and mode.
+    
+        Parameters
+        ----------
+        path_or_buf : str or file handle
+            File path or object.
+        mode : str
+            Mode to open path_or_buf with.
+        encoding : str or None
+            Encoding to use.
+        compression : str or dict, default 'infer'
+            For on-the-fly compression of the output data. If 'infer' and 'path_or_buf'
+            is path-like, then detect compression from the following extensions: '.gz',
+            '.bz2', '.zip', '.xz', '.zst', '.tar', '.tar.gz', '.tar.xz' or '.tar.bz2'
+            (otherwise no compression).
+            Set to ``None`` for no compression.
+            Can also be a dict with key ``'method'`` set
+            to one of {``'zip'``, ``'gzip'``, ``'bz2'``, ``'zstd'``, ``'xz'``, ``'tar'``}
+            and other key-value pairs are forwarded to
+            ``zipfile.ZipFile``, ``gzip.GzipFile``,
+            ``bz2.BZ2File``, ``zstandard.ZstdCompressor``, ``lzma.LZMAFile`` or
+            ``tarfile.TarFile``, respectively.
+            As an example, the following could be passed for faster compression and to
+            create a reproducible gzip archive:
+            ``compression={'method': 'gzip', 'compresslevel': 1, 'mtime': 1}``.
+    
+               May be a dict with key 'method' as compression mode
+               and other keys as compression options if compression
+               mode is 'zip'.
+    
+               Passing compression options as keys in dict is
+               supported for compression modes 'gzip', 'bz2', 'zstd' and 'zip'.
+    
+        memory_map : bool, default False
+            See parsers._parser_params for more information. Only used by read_csv.
+        is_text : bool, default True
+            Whether the type of the content passed to the file/buffer is string or
+            bytes. This is not the same as `"b" not in mode`. If a string content is
+            passed to a binary file/buffer, a wrapper is inserted.
+        errors : str, default 'strict'
+            Specifies how encoding and decoding errors are to be handled.
+            See the errors argument for :func:`open` for a full list
+            of options.
+        storage_options: StorageOptions = None
+            Passed to _get_filepath_or_buffer
+    
+        Returns the dataclass IOHandles
+        """
+        # Windows does not default to utf-8. Set to utf-8 for a consistent behavior
+        encoding = encoding or "utf-8"
+    
+        errors = errors or "strict"
+    
+        # read_csv does not know whether the buffer is opened in binary/text mode
+        if _is_binary_mode(path_or_buf, mode) and "b" not in mode:
+            mode += "b"
+    
+        # validate encoding and errors
+        codecs.lookup(encoding)
+        if isinstance(errors, str):
+            codecs.lookup_error(errors)
+    
+        # open URLs
+        ioargs = _get_filepath_or_buffer(
+            path_or_buf,
+            encoding=encoding,
+            compression=compression,
+            mode=mode,
+            storage_options=storage_options,
+        )
+    
+        handle = ioargs.filepath_or_buffer
+        handles: list[BaseBuffer]
+    
+        # memory mapping needs to be the first step
+        # only used for read_csv
+        handle, memory_map, handles = _maybe_memory_map(handle, memory_map)
+    
+        is_path = isinstance(handle, str)
+        compression_args = dict(ioargs.compression)
+        compression = compression_args.pop("method")
+    
+        # Only for write methods
+        if "r" not in mode and is_path:
+            check_parent_directory(str(handle))
+    
+        if compression:
+            if compression != "zstd":
+                # compression libraries do not like an explicit text-mode
+                ioargs.mode = ioargs.mode.replace("t", "")
+            elif compression == "zstd" and "b" not in ioargs.mode:
+                # python-zstandard defaults to text mode, but we always expect
+                # compression libraries to use binary mode.
+                ioargs.mode += "b"
+    
+            # GZ Compression
+            if compression == "gzip":
+                if isinstance(handle, str):
+                    # error: Incompatible types in assignment (expression has type
+                    # "GzipFile", variable has type "Union[str, BaseBuffer]")
+                    handle = gzip.GzipFile(  # type: ignore[assignment]
+                        filename=handle,
+                        mode=ioargs.mode,
+                        **compression_args,
+                    )
+                else:
+                    handle = gzip.GzipFile(
+                        # No overload variant of "GzipFile" matches argument types
+                        # "Union[str, BaseBuffer]", "str", "Dict[str, Any]"
+                        fileobj=handle,  # type: ignore[call-overload]
+                        mode=ioargs.mode,
+                        **compression_args,
+                    )
+    
+            # BZ Compression
+            elif compression == "bz2":
+                import bz2
+    
+                # Overload of "BZ2File" to handle pickle protocol 5
+                # "Union[str, BaseBuffer]", "str", "Dict[str, Any]"
+                handle = bz2.BZ2File(  # type: ignore[call-overload]
+                    handle,
+                    mode=ioargs.mode,
+                    **compression_args,
+                )
+    
+            # ZIP Compression
+            elif compression == "zip":
+                # error: Argument 1 to "_BytesZipFile" has incompatible type
+                # "Union[str, BaseBuffer]"; expected "Union[Union[str, PathLike[str]],
+                # ReadBuffer[bytes], WriteBuffer[bytes]]"
+                handle = _BytesZipFile(
+                    handle,  # type: ignore[arg-type]
+                    ioargs.mode,
+                    **compression_args,
+                )
+                if handle.buffer.mode == "r":
+                    handles.append(handle)
+                    zip_names = handle.buffer.namelist()
+                    if len(zip_names) == 1:
+                        handle = handle.buffer.open(zip_names.pop())
+                    elif not zip_names:
+                        raise ValueError(f"Zero files found in ZIP file {path_or_buf}")
+                    else:
+                        raise ValueError(
+                            "Multiple files found in ZIP file. "
+                            f"Only one file per ZIP: {zip_names}"
+                        )
+    
+            # TAR Encoding
+            elif compression == "tar":
+                compression_args.setdefault("mode", ioargs.mode)
+                if isinstance(handle, str):
+                    handle = _BytesTarFile(name=handle, **compression_args)
+                else:
+                    # error: Argument "fileobj" to "_BytesTarFile" has incompatible
+                    # type "BaseBuffer"; expected "Union[ReadBuffer[bytes],
+                    # WriteBuffer[bytes], None]"
+                    handle = _BytesTarFile(
+                        fileobj=handle,  # type: ignore[arg-type]
+                        **compression_args,
+                    )
+                assert isinstance(handle, _BytesTarFile)
+                if "r" in handle.buffer.mode:
+                    handles.append(handle)
+                    files = handle.buffer.getnames()
+                    if len(files) == 1:
+                        file = handle.buffer.extractfile(files[0])
+                        assert file is not None
+                        handle = file
+                    elif not files:
+                        raise ValueError(f"Zero files found in TAR archive {path_or_buf}")
+                    else:
+                        raise ValueError(
+                            "Multiple files found in TAR archive. "
+                            f"Only one file per TAR archive: {files}"
+                        )
+    
+            # XZ Compression
+            elif compression == "xz":
+                # error: Argument 1 to "LZMAFile" has incompatible type "Union[str,
+                # BaseBuffer]"; expected "Optional[Union[Union[str, bytes, PathLike[str],
+                # PathLike[bytes]], IO[bytes]], None]"
+                import lzma
+    
+                handle = lzma.LZMAFile(
+                    handle,  # type: ignore[arg-type]
+                    ioargs.mode,
+                    **compression_args,
+                )
+    
+            # Zstd Compression
+            elif compression == "zstd":
+                zstd = import_optional_dependency("zstandard")
+                if "r" in ioargs.mode:
+                    open_args = {"dctx": zstd.ZstdDecompressor(**compression_args)}
+                else:
+                    open_args = {"cctx": zstd.ZstdCompressor(**compression_args)}
+                handle = zstd.open(
+                    handle,
+                    mode=ioargs.mode,
+                    **open_args,
+                )
+    
+            # Unrecognized Compression
+            else:
+                msg = f"Unrecognized compression type: {compression}"
+                raise ValueError(msg)
+    
+            assert not isinstance(handle, str)
+            handles.append(handle)
+    
+        elif isinstance(handle, str):
+            # Check whether the filename is to be opened in binary mode.
+            # Binary mode does not support 'encoding' and 'newline'.
+            if ioargs.encoding and "b" not in ioargs.mode:
+                # Encoding
+                handle = open(
+                    handle,
+                    ioargs.mode,
+                    encoding=ioargs.encoding,
+                    errors=errors,
+                    newline="",
+                )
+            else:
+                # Binary mode
+>               handle = open(handle, ioargs.mode)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^
+E               FileNotFoundError: [Errno 2] No such file or directory: '/workspaces/dqe-automation/parquet_data/test_facility_name_min_time_spent_per_visit_date'
+
+../.venv/lib/python3.14/site-packages/pandas/io/common.py:939: FileNotFoundError
+______________________________ test_completeness _______________________________
+
+parquet_reader = <src.connectors.file_system.parquet_reader.ParquetReader object at 0x700a13456900>
+data_quality_library = <src.data_quality.data_quality_validation_library.DataQualityLibrary object at 0x700a1292d550>
+
+    @pytest.mark.parquet_data
+    def test_completeness(parquet_reader, data_quality_library):
+        target_path =  "/workspaces/dqe-automation/parquet_data/test_facility_name_min_time_spent_per_visit_date"
+>       target_data = parquet_reader.process(target_path)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/dq checks/parquet_files/test_facility_name_min_time_spent_per_visit_date.py:18: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+src/connectors/file_system/parquet_reader.py:10: in process
+    return pd.read_parquet(file_path)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+../.venv/lib/python3.14/site-packages/pandas/io/parquet.py:671: in read_parquet
+    return impl.read(
+../.venv/lib/python3.14/site-packages/pandas/io/parquet.py:253: in read
+    path_or_handle, handles, filesystem = _get_path_or_handle(
+../.venv/lib/python3.14/site-packages/pandas/io/parquet.py:141: in _get_path_or_handle
+    handles = get_handle(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+path_or_buf = '/workspaces/dqe-automation/parquet_data/test_facility_name_min_time_spent_per_visit_date'
+mode = 'rb', encoding = 'utf-8', compression = None, memory_map = False
+is_text = False, errors = 'strict', storage_options = None
+
+    def get_handle(
+        path_or_buf: FilePath | BaseBuffer,
+        mode: str,
+        *,
+        encoding: str | None = None,
+        compression: CompressionOptions | None = None,
+        memory_map: bool = False,
+        is_text: bool = True,
+        errors: str | None = None,
+        storage_options: StorageOptions | None = None,
+    ) -> IOHandles[str] | IOHandles[bytes]:
+        """
+        Get file handle for given path/buffer and mode.
+    
+        Parameters
+        ----------
+        path_or_buf : str or file handle
+            File path or object.
+        mode : str
+            Mode to open path_or_buf with.
+        encoding : str or None
+            Encoding to use.
+        compression : str or dict, default 'infer'
+            For on-the-fly compression of the output data. If 'infer' and 'path_or_buf'
+            is path-like, then detect compression from the following extensions: '.gz',
+            '.bz2', '.zip', '.xz', '.zst', '.tar', '.tar.gz', '.tar.xz' or '.tar.bz2'
+            (otherwise no compression).
+            Set to ``None`` for no compression.
+            Can also be a dict with key ``'method'`` set
+            to one of {``'zip'``, ``'gzip'``, ``'bz2'``, ``'zstd'``, ``'xz'``, ``'tar'``}
+            and other key-value pairs are forwarded to
+            ``zipfile.ZipFile``, ``gzip.GzipFile``,
+            ``bz2.BZ2File``, ``zstandard.ZstdCompressor``, ``lzma.LZMAFile`` or
+            ``tarfile.TarFile``, respectively.
+            As an example, the following could be passed for faster compression and to
+            create a reproducible gzip archive:
+            ``compression={'method': 'gzip', 'compresslevel': 1, 'mtime': 1}``.
+    
+               May be a dict with key 'method' as compression mode
+               and other keys as compression options if compression
+               mode is 'zip'.
+    
+               Passing compression options as keys in dict is
+               supported for compression modes 'gzip', 'bz2', 'zstd' and 'zip'.
+    
+        memory_map : bool, default False
+            See parsers._parser_params for more information. Only used by read_csv.
+        is_text : bool, default True
+            Whether the type of the content passed to the file/buffer is string or
+            bytes. This is not the same as `"b" not in mode`. If a string content is
+            passed to a binary file/buffer, a wrapper is inserted.
+        errors : str, default 'strict'
+            Specifies how encoding and decoding errors are to be handled.
+            See the errors argument for :func:`open` for a full list
+            of options.
+        storage_options: StorageOptions = None
+            Passed to _get_filepath_or_buffer
+    
+        Returns the dataclass IOHandles
+        """
+        # Windows does not default to utf-8. Set to utf-8 for a consistent behavior
+        encoding = encoding or "utf-8"
+    
+        errors = errors or "strict"
+    
+        # read_csv does not know whether the buffer is opened in binary/text mode
+        if _is_binary_mode(path_or_buf, mode) and "b" not in mode:
+            mode += "b"
+    
+        # validate encoding and errors
+        codecs.lookup(encoding)
+        if isinstance(errors, str):
+            codecs.lookup_error(errors)
+    
+        # open URLs
+        ioargs = _get_filepath_or_buffer(
+            path_or_buf,
+            encoding=encoding,
+            compression=compression,
+            mode=mode,
+            storage_options=storage_options,
+        )
+    
+        handle = ioargs.filepath_or_buffer
+        handles: list[BaseBuffer]
+    
+        # memory mapping needs to be the first step
+        # only used for read_csv
+        handle, memory_map, handles = _maybe_memory_map(handle, memory_map)
+    
+        is_path = isinstance(handle, str)
+        compression_args = dict(ioargs.compression)
+        compression = compression_args.pop("method")
+    
+        # Only for write methods
+        if "r" not in mode and is_path:
+            check_parent_directory(str(handle))
+    
+        if compression:
+            if compression != "zstd":
+                # compression libraries do not like an explicit text-mode
+                ioargs.mode = ioargs.mode.replace("t", "")
+            elif compression == "zstd" and "b" not in ioargs.mode:
+                # python-zstandard defaults to text mode, but we always expect
+                # compression libraries to use binary mode.
+                ioargs.mode += "b"
+    
+            # GZ Compression
+            if compression == "gzip":
+                if isinstance(handle, str):
+                    # error: Incompatible types in assignment (expression has type
+                    # "GzipFile", variable has type "Union[str, BaseBuffer]")
+                    handle = gzip.GzipFile(  # type: ignore[assignment]
+                        filename=handle,
+                        mode=ioargs.mode,
+                        **compression_args,
+                    )
+                else:
+                    handle = gzip.GzipFile(
+                        # No overload variant of "GzipFile" matches argument types
+                        # "Union[str, BaseBuffer]", "str", "Dict[str, Any]"
+                        fileobj=handle,  # type: ignore[call-overload]
+                        mode=ioargs.mode,
+                        **compression_args,
+                    )
+    
+            # BZ Compression
+            elif compression == "bz2":
+                import bz2
+    
+                # Overload of "BZ2File" to handle pickle protocol 5
+                # "Union[str, BaseBuffer]", "str", "Dict[str, Any]"
+                handle = bz2.BZ2File(  # type: ignore[call-overload]
+                    handle,
+                    mode=ioargs.mode,
+                    **compression_args,
+                )
+    
+            # ZIP Compression
+            elif compression == "zip":
+                # error: Argument 1 to "_BytesZipFile" has incompatible type
+                # "Union[str, BaseBuffer]"; expected "Union[Union[str, PathLike[str]],
+                # ReadBuffer[bytes], WriteBuffer[bytes]]"
+                handle = _BytesZipFile(
+                    handle,  # type: ignore[arg-type]
+                    ioargs.mode,
+                    **compression_args,
+                )
+                if handle.buffer.mode == "r":
+                    handles.append(handle)
+                    zip_names = handle.buffer.namelist()
+                    if len(zip_names) == 1:
+                        handle = handle.buffer.open(zip_names.pop())
+                    elif not zip_names:
+                        raise ValueError(f"Zero files found in ZIP file {path_or_buf}")
+                    else:
+                        raise ValueError(
+                            "Multiple files found in ZIP file. "
+                            f"Only one file per ZIP: {zip_names}"
+                        )
+    
+            # TAR Encoding
+            elif compression == "tar":
+                compression_args.setdefault("mode", ioargs.mode)
+                if isinstance(handle, str):
+                    handle = _BytesTarFile(name=handle, **compression_args)
+                else:
+                    # error: Argument "fileobj" to "_BytesTarFile" has incompatible
+                    # type "BaseBuffer"; expected "Union[ReadBuffer[bytes],
+                    # WriteBuffer[bytes], None]"
+                    handle = _BytesTarFile(
+                        fileobj=handle,  # type: ignore[arg-type]
+                        **compression_args,
+                    )
+                assert isinstance(handle, _BytesTarFile)
+                if "r" in handle.buffer.mode:
+                    handles.append(handle)
+                    files = handle.buffer.getnames()
+                    if len(files) == 1:
+                        file = handle.buffer.extractfile(files[0])
+                        assert file is not None
+                        handle = file
+                    elif not files:
+                        raise ValueError(f"Zero files found in TAR archive {path_or_buf}")
+                    else:
+                        raise ValueError(
+                            "Multiple files found in TAR archive. "
+                            f"Only one file per TAR archive: {files}"
+                        )
+    
+            # XZ Compression
+            elif compression == "xz":
+                # error: Argument 1 to "LZMAFile" has incompatible type "Union[str,
+                # BaseBuffer]"; expected "Optional[Union[Union[str, bytes, PathLike[str],
+                # PathLike[bytes]], IO[bytes]], None]"
+                import lzma
+    
+                handle = lzma.LZMAFile(
+                    handle,  # type: ignore[arg-type]
+                    ioargs.mode,
+                    **compression_args,
+                )
+    
+            # Zstd Compression
+            elif compression == "zstd":
+                zstd = import_optional_dependency("zstandard")
+                if "r" in ioargs.mode:
+                    open_args = {"dctx": zstd.ZstdDecompressor(**compression_args)}
+                else:
+                    open_args = {"cctx": zstd.ZstdCompressor(**compression_args)}
+                handle = zstd.open(
+                    handle,
+                    mode=ioargs.mode,
+                    **open_args,
+                )
+    
+            # Unrecognized Compression
+            else:
+                msg = f"Unrecognized compression type: {compression}"
+                raise ValueError(msg)
+    
+            assert not isinstance(handle, str)
+            handles.append(handle)
+    
+        elif isinstance(handle, str):
+            # Check whether the filename is to be opened in binary mode.
+            # Binary mode does not support 'encoding' and 'newline'.
+            if ioargs.encoding and "b" not in ioargs.mode:
+                # Encoding
+                handle = open(
+                    handle,
+                    ioargs.mode,
+                    encoding=ioargs.encoding,
+                    errors=errors,
+                    newline="",
+                )
+            else:
+                # Binary mode
+>               handle = open(handle, ioargs.mode)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^
+E               FileNotFoundError: [Errno 2] No such file or directory: '/workspaces/dqe-automation/parquet_data/test_facility_name_min_time_spent_per_visit_date'
+
+../.venv/lib/python3.14/site-packages/pandas/io/common.py:939: FileNotFoundError
+__________________________________ test_count __________________________________
+
+db_connection = None
+parquet_reader = <src.connectors.file_system.parquet_reader.ParquetReader object at 0x700a13456900>
+data_quality_library = <src.data_quality.data_quality_validation_library.DataQualityLibrary object at 0x700a1292d550>
+
+    @pytest.mark.parquet_data
+    def test_count(db_connection, parquet_reader, data_quality_library):
+        source_query = """
+            SELECT
+                f.facility_name,
+                CAST(v.visit_timestamp AS DATE) AS visit_date,
+                MIN(v.duration_minutes) AS min_time_spent
+            FROM facilities f
+            JOIN visits v ON f.id = v.facility_id
+            GROUP BY f.facility_name, CAST(v.visit_timestamp AS DATE)
+        """
+>       source_data = db_connection.get_data_sql(source_query)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: 'NoneType' object has no attribute 'get_data_sql'
+
+tests/dq checks/parquet_files/test_facility_name_min_time_spent_per_visit_date.py:33: AttributeError
+_______________________________ test_uniqueness ________________________________
+
+parquet_reader = <src.connectors.file_system.parquet_reader.ParquetReader object at 0x700a13456900>
+data_quality_library = <src.data_quality.data_quality_validation_library.DataQualityLibrary object at 0x700a1292d550>
+
+    @pytest.mark.parquet_data
+    def test_uniqueness(parquet_reader, data_quality_library):
+        target_path =  "/workspaces/dqe-automation/parquet_data/test_facility_name_min_time_spent_per_visit_date"
+>       target_data = parquet_reader.process(target_path)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/dq checks/parquet_files/test_facility_name_min_time_spent_per_visit_date.py:41: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+src/connectors/file_system/parquet_reader.py:10: in process
+    return pd.read_parquet(file_path)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+../.venv/lib/python3.14/site-packages/pandas/io/parquet.py:671: in read_parquet
+    return impl.read(
+../.venv/lib/python3.14/site-packages/pandas/io/parquet.py:253: in read
+    path_or_handle, handles, filesystem = _get_path_or_handle(
+../.venv/lib/python3.14/site-packages/pandas/io/parquet.py:141: in _get_path_or_handle
+    handles = get_handle(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+path_or_buf = '/workspaces/dqe-automation/parquet_data/test_facility_name_min_time_spent_per_visit_date'
+mode = 'rb', encoding = 'utf-8', compression = None, memory_map = False
+is_text = False, errors = 'strict', storage_options = None
+
+    def get_handle(
+        path_or_buf: FilePath | BaseBuffer,
+        mode: str,
+        *,
+        encoding: str | None = None,
+        compression: CompressionOptions | None = None,
+        memory_map: bool = False,
+        is_text: bool = True,
+        errors: str | None = None,
+        storage_options: StorageOptions | None = None,
+    ) -> IOHandles[str] | IOHandles[bytes]:
+        """
+        Get file handle for given path/buffer and mode.
+    
+        Parameters
+        ----------
+        path_or_buf : str or file handle
+            File path or object.
+        mode : str
+            Mode to open path_or_buf with.
+        encoding : str or None
+            Encoding to use.
+        compression : str or dict, default 'infer'
+            For on-the-fly compression of the output data. If 'infer' and 'path_or_buf'
+            is path-like, then detect compression from the following extensions: '.gz',
+            '.bz2', '.zip', '.xz', '.zst', '.tar', '.tar.gz', '.tar.xz' or '.tar.bz2'
+            (otherwise no compression).
+            Set to ``None`` for no compression.
+            Can also be a dict with key ``'method'`` set
+            to one of {``'zip'``, ``'gzip'``, ``'bz2'``, ``'zstd'``, ``'xz'``, ``'tar'``}
+            and other key-value pairs are forwarded to
+            ``zipfile.ZipFile``, ``gzip.GzipFile``,
+            ``bz2.BZ2File``, ``zstandard.ZstdCompressor``, ``lzma.LZMAFile`` or
+            ``tarfile.TarFile``, respectively.
+            As an example, the following could be passed for faster compression and to
+            create a reproducible gzip archive:
+            ``compression={'method': 'gzip', 'compresslevel': 1, 'mtime': 1}``.
+    
+               May be a dict with key 'method' as compression mode
+               and other keys as compression options if compression
+               mode is 'zip'.
+    
+               Passing compression options as keys in dict is
+               supported for compression modes 'gzip', 'bz2', 'zstd' and 'zip'.
+    
+        memory_map : bool, default False
+            See parsers._parser_params for more information. Only used by read_csv.
+        is_text : bool, default True
+            Whether the type of the content passed to the file/buffer is string or
+            bytes. This is not the same as `"b" not in mode`. If a string content is
+            passed to a binary file/buffer, a wrapper is inserted.
+        errors : str, default 'strict'
+            Specifies how encoding and decoding errors are to be handled.
+            See the errors argument for :func:`open` for a full list
+            of options.
+        storage_options: StorageOptions = None
+            Passed to _get_filepath_or_buffer
+    
+        Returns the dataclass IOHandles
+        """
+        # Windows does not default to utf-8. Set to utf-8 for a consistent behavior
+        encoding = encoding or "utf-8"
+    
+        errors = errors or "strict"
+    
+        # read_csv does not know whether the buffer is opened in binary/text mode
+        if _is_binary_mode(path_or_buf, mode) and "b" not in mode:
+            mode += "b"
+    
+        # validate encoding and errors
+        codecs.lookup(encoding)
+        if isinstance(errors, str):
+            codecs.lookup_error(errors)
+    
+        # open URLs
+        ioargs = _get_filepath_or_buffer(
+            path_or_buf,
+            encoding=encoding,
+            compression=compression,
+            mode=mode,
+            storage_options=storage_options,
+        )
+    
+        handle = ioargs.filepath_or_buffer
+        handles: list[BaseBuffer]
+    
+        # memory mapping needs to be the first step
+        # only used for read_csv
+        handle, memory_map, handles = _maybe_memory_map(handle, memory_map)
+    
+        is_path = isinstance(handle, str)
+        compression_args = dict(ioargs.compression)
+        compression = compression_args.pop("method")
+    
+        # Only for write methods
+        if "r" not in mode and is_path:
+            check_parent_directory(str(handle))
+    
+        if compression:
+            if compression != "zstd":
+                # compression libraries do not like an explicit text-mode
+                ioargs.mode = ioargs.mode.replace("t", "")
+            elif compression == "zstd" and "b" not in ioargs.mode:
+                # python-zstandard defaults to text mode, but we always expect
+                # compression libraries to use binary mode.
+                ioargs.mode += "b"
+    
+            # GZ Compression
+            if compression == "gzip":
+                if isinstance(handle, str):
+                    # error: Incompatible types in assignment (expression has type
+                    # "GzipFile", variable has type "Union[str, BaseBuffer]")
+                    handle = gzip.GzipFile(  # type: ignore[assignment]
+                        filename=handle,
+                        mode=ioargs.mode,
+                        **compression_args,
+                    )
+                else:
+                    handle = gzip.GzipFile(
+                        # No overload variant of "GzipFile" matches argument types
+                        # "Union[str, BaseBuffer]", "str", "Dict[str, Any]"
+                        fileobj=handle,  # type: ignore[call-overload]
+                        mode=ioargs.mode,
+                        **compression_args,
+                    )
+    
+            # BZ Compression
+            elif compression == "bz2":
+                import bz2
+    
+                # Overload of "BZ2File" to handle pickle protocol 5
+                # "Union[str, BaseBuffer]", "str", "Dict[str, Any]"
+                handle = bz2.BZ2File(  # type: ignore[call-overload]
+                    handle,
+                    mode=ioargs.mode,
+                    **compression_args,
+                )
+    
+            # ZIP Compression
+            elif compression == "zip":
+                # error: Argument 1 to "_BytesZipFile" has incompatible type
+                # "Union[str, BaseBuffer]"; expected "Union[Union[str, PathLike[str]],
+                # ReadBuffer[bytes], WriteBuffer[bytes]]"
+                handle = _BytesZipFile(
+                    handle,  # type: ignore[arg-type]
+                    ioargs.mode,
+                    **compression_args,
+                )
+                if handle.buffer.mode == "r":
+                    handles.append(handle)
+                    zip_names = handle.buffer.namelist()
+                    if len(zip_names) == 1:
+                        handle = handle.buffer.open(zip_names.pop())
+                    elif not zip_names:
+                        raise ValueError(f"Zero files found in ZIP file {path_or_buf}")
+                    else:
+                        raise ValueError(
+                            "Multiple files found in ZIP file. "
+                            f"Only one file per ZIP: {zip_names}"
+                        )
+    
+            # TAR Encoding
+            elif compression == "tar":
+                compression_args.setdefault("mode", ioargs.mode)
+                if isinstance(handle, str):
+                    handle = _BytesTarFile(name=handle, **compression_args)
+                else:
+                    # error: Argument "fileobj" to "_BytesTarFile" has incompatible
+                    # type "BaseBuffer"; expected "Union[ReadBuffer[bytes],
+                    # WriteBuffer[bytes], None]"
+                    handle = _BytesTarFile(
+                        fileobj=handle,  # type: ignore[arg-type]
+                        **compression_args,
+                    )
+                assert isinstance(handle, _BytesTarFile)
+                if "r" in handle.buffer.mode:
+                    handles.append(handle)
+                    files = handle.buffer.getnames()
+                    if len(files) == 1:
+                        file = handle.buffer.extractfile(files[0])
+                        assert file is not None
+                        handle = file
+                    elif not files:
+                        raise ValueError(f"Zero files found in TAR archive {path_or_buf}")
+                    else:
+                        raise ValueError(
+                            "Multiple files found in TAR archive. "
+                            f"Only one file per TAR archive: {files}"
+                        )
+    
+            # XZ Compression
+            elif compression == "xz":
+                # error: Argument 1 to "LZMAFile" has incompatible type "Union[str,
+                # BaseBuffer]"; expected "Optional[Union[Union[str, bytes, PathLike[str],
+                # PathLike[bytes]], IO[bytes]], None]"
+                import lzma
+    
+                handle = lzma.LZMAFile(
+                    handle,  # type: ignore[arg-type]
+                    ioargs.mode,
+                    **compression_args,
+                )
+    
+            # Zstd Compression
+            elif compression == "zstd":
+                zstd = import_optional_dependency("zstandard")
+                if "r" in ioargs.mode:
+                    open_args = {"dctx": zstd.ZstdDecompressor(**compression_args)}
+                else:
+                    open_args = {"cctx": zstd.ZstdCompressor(**compression_args)}
+                handle = zstd.open(
+                    handle,
+                    mode=ioargs.mode,
+                    **open_args,
+                )
+    
+            # Unrecognized Compression
+            else:
+                msg = f"Unrecognized compression type: {compression}"
+                raise ValueError(msg)
+    
+            assert not isinstance(handle, str)
+            handles.append(handle)
+    
+        elif isinstance(handle, str):
+            # Check whether the filename is to be opened in binary mode.
+            # Binary mode does not support 'encoding' and 'newline'.
+            if ioargs.encoding and "b" not in ioargs.mode:
+                # Encoding
+                handle = open(
+                    handle,
+                    ioargs.mode,
+                    encoding=ioargs.encoding,
+                    errors=errors,
+                    newline="",
+                )
+            else:
+                # Binary mode
+>               handle = open(handle, ioargs.mode)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^
+E               FileNotFoundError: [Errno 2] No such file or directory: '/workspaces/dqe-automation/parquet_data/test_facility_name_min_time_spent_per_visit_date'
+
+../.venv/lib/python3.14/site-packages/pandas/io/common.py:939: FileNotFoundError
+_____________________________ test_not_null_values _____________________________
+
+parquet_reader = <src.connectors.file_system.parquet_reader.ParquetReader object at 0x700a13456900>
+data_quality_library = <src.data_quality.data_quality_validation_library.DataQualityLibrary object at 0x700a1292d550>
+
+    @pytest.mark.parquet_data
+    def test_not_null_values(parquet_reader, data_quality_library):
+        target_path =  "/workspaces/dqe-automation/parquet_data/test_facility_name_min_time_spent_per_visit_date"
+>       target_data = parquet_reader.process(target_path)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/dq checks/parquet_files/test_facility_name_min_time_spent_per_visit_date.py:47: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+src/connectors/file_system/parquet_reader.py:10: in process
+    return pd.read_parquet(file_path)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+../.venv/lib/python3.14/site-packages/pandas/io/parquet.py:671: in read_parquet
+    return impl.read(
+../.venv/lib/python3.14/site-packages/pandas/io/parquet.py:253: in read
+    path_or_handle, handles, filesystem = _get_path_or_handle(
+../.venv/lib/python3.14/site-packages/pandas/io/parquet.py:141: in _get_path_or_handle
+    handles = get_handle(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+path_or_buf = '/workspaces/dqe-automation/parquet_data/test_facility_name_min_time_spent_per_visit_date'
+mode = 'rb', encoding = 'utf-8', compression = None, memory_map = False
+is_text = False, errors = 'strict', storage_options = None
+
+    def get_handle(
+        path_or_buf: FilePath | BaseBuffer,
+        mode: str,
+        *,
+        encoding: str | None = None,
+        compression: CompressionOptions | None = None,
+        memory_map: bool = False,
+        is_text: bool = True,
+        errors: str | None = None,
+        storage_options: StorageOptions | None = None,
+    ) -> IOHandles[str] | IOHandles[bytes]:
+        """
+        Get file handle for given path/buffer and mode.
+    
+        Parameters
+        ----------
+        path_or_buf : str or file handle
+            File path or object.
+        mode : str
+            Mode to open path_or_buf with.
+        encoding : str or None
+            Encoding to use.
+        compression : str or dict, default 'infer'
+            For on-the-fly compression of the output data. If 'infer' and 'path_or_buf'
+            is path-like, then detect compression from the following extensions: '.gz',
+            '.bz2', '.zip', '.xz', '.zst', '.tar', '.tar.gz', '.tar.xz' or '.tar.bz2'
+            (otherwise no compression).
+            Set to ``None`` for no compression.
+            Can also be a dict with key ``'method'`` set
+            to one of {``'zip'``, ``'gzip'``, ``'bz2'``, ``'zstd'``, ``'xz'``, ``'tar'``}
+            and other key-value pairs are forwarded to
+            ``zipfile.ZipFile``, ``gzip.GzipFile``,
+            ``bz2.BZ2File``, ``zstandard.ZstdCompressor``, ``lzma.LZMAFile`` or
+            ``tarfile.TarFile``, respectively.
+            As an example, the following could be passed for faster compression and to
+            create a reproducible gzip archive:
+            ``compression={'method': 'gzip', 'compresslevel': 1, 'mtime': 1}``.
+    
+               May be a dict with key 'method' as compression mode
+               and other keys as compression options if compression
+               mode is 'zip'.
+    
+               Passing compression options as keys in dict is
+               supported for compression modes 'gzip', 'bz2', 'zstd' and 'zip'.
+    
+        memory_map : bool, default False
+            See parsers._parser_params for more information. Only used by read_csv.
+        is_text : bool, default True
+            Whether the type of the content passed to the file/buffer is string or
+            bytes. This is not the same as `"b" not in mode`. If a string content is
+            passed to a binary file/buffer, a wrapper is inserted.
+        errors : str, default 'strict'
+            Specifies how encoding and decoding errors are to be handled.
+            See the errors argument for :func:`open` for a full list
+            of options.
+        storage_options: StorageOptions = None
+            Passed to _get_filepath_or_buffer
+    
+        Returns the dataclass IOHandles
+        """
+        # Windows does not default to utf-8. Set to utf-8 for a consistent behavior
+        encoding = encoding or "utf-8"
+    
+        errors = errors or "strict"
+    
+        # read_csv does not know whether the buffer is opened in binary/text mode
+        if _is_binary_mode(path_or_buf, mode) and "b" not in mode:
+            mode += "b"
+    
+        # validate encoding and errors
+        codecs.lookup(encoding)
+        if isinstance(errors, str):
+            codecs.lookup_error(errors)
+    
+        # open URLs
+        ioargs = _get_filepath_or_buffer(
+            path_or_buf,
+            encoding=encoding,
+            compression=compression,
+            mode=mode,
+            storage_options=storage_options,
+        )
+    
+        handle = ioargs.filepath_or_buffer
+        handles: list[BaseBuffer]
+    
+        # memory mapping needs to be the first step
+        # only used for read_csv
+        handle, memory_map, handles = _maybe_memory_map(handle, memory_map)
+    
+        is_path = isinstance(handle, str)
+        compression_args = dict(ioargs.compression)
+        compression = compression_args.pop("method")
+    
+        # Only for write methods
+        if "r" not in mode and is_path:
+            check_parent_directory(str(handle))
+    
+        if compression:
+            if compression != "zstd":
+                # compression libraries do not like an explicit text-mode
+                ioargs.mode = ioargs.mode.replace("t", "")
+            elif compression == "zstd" and "b" not in ioargs.mode:
+                # python-zstandard defaults to text mode, but we always expect
+                # compression libraries to use binary mode.
+                ioargs.mode += "b"
+    
+            # GZ Compression
+            if compression == "gzip":
+                if isinstance(handle, str):
+                    # error: Incompatible types in assignment (expression has type
+                    # "GzipFile", variable has type "Union[str, BaseBuffer]")
+                    handle = gzip.GzipFile(  # type: ignore[assignment]
+                        filename=handle,
+                        mode=ioargs.mode,
+                        **compression_args,
+                    )
+                else:
+                    handle = gzip.GzipFile(
+                        # No overload variant of "GzipFile" matches argument types
+                        # "Union[str, BaseBuffer]", "str", "Dict[str, Any]"
+                        fileobj=handle,  # type: ignore[call-overload]
+                        mode=ioargs.mode,
+                        **compression_args,
+                    )
+    
+            # BZ Compression
+            elif compression == "bz2":
+                import bz2
+    
+                # Overload of "BZ2File" to handle pickle protocol 5
+                # "Union[str, BaseBuffer]", "str", "Dict[str, Any]"
+                handle = bz2.BZ2File(  # type: ignore[call-overload]
+                    handle,
+                    mode=ioargs.mode,
+                    **compression_args,
+                )
+    
+            # ZIP Compression
+            elif compression == "zip":
+                # error: Argument 1 to "_BytesZipFile" has incompatible type
+                # "Union[str, BaseBuffer]"; expected "Union[Union[str, PathLike[str]],
+                # ReadBuffer[bytes], WriteBuffer[bytes]]"
+                handle = _BytesZipFile(
+                    handle,  # type: ignore[arg-type]
+                    ioargs.mode,
+                    **compression_args,
+                )
+                if handle.buffer.mode == "r":
+                    handles.append(handle)
+                    zip_names = handle.buffer.namelist()
+                    if len(zip_names) == 1:
+                        handle = handle.buffer.open(zip_names.pop())
+                    elif not zip_names:
+                        raise ValueError(f"Zero files found in ZIP file {path_or_buf}")
+                    else:
+                        raise ValueError(
+                            "Multiple files found in ZIP file. "
+                            f"Only one file per ZIP: {zip_names}"
+                        )
+    
+            # TAR Encoding
+            elif compression == "tar":
+                compression_args.setdefault("mode", ioargs.mode)
+                if isinstance(handle, str):
+                    handle = _BytesTarFile(name=handle, **compression_args)
+                else:
+                    # error: Argument "fileobj" to "_BytesTarFile" has incompatible
+                    # type "BaseBuffer"; expected "Union[ReadBuffer[bytes],
+                    # WriteBuffer[bytes], None]"
+                    handle = _BytesTarFile(
+                        fileobj=handle,  # type: ignore[arg-type]
+                        **compression_args,
+                    )
+                assert isinstance(handle, _BytesTarFile)
+                if "r" in handle.buffer.mode:
+                    handles.append(handle)
+                    files = handle.buffer.getnames()
+                    if len(files) == 1:
+                        file = handle.buffer.extractfile(files[0])
+                        assert file is not None
+                        handle = file
+                    elif not files:
+                        raise ValueError(f"Zero files found in TAR archive {path_or_buf}")
+                    else:
+                        raise ValueError(
+                            "Multiple files found in TAR archive. "
+                            f"Only one file per TAR archive: {files}"
+                        )
+    
+            # XZ Compression
+            elif compression == "xz":
+                # error: Argument 1 to "LZMAFile" has incompatible type "Union[str,
+                # BaseBuffer]"; expected "Optional[Union[Union[str, bytes, PathLike[str],
+                # PathLike[bytes]], IO[bytes]], None]"
+                import lzma
+    
+                handle = lzma.LZMAFile(
+                    handle,  # type: ignore[arg-type]
+                    ioargs.mode,
+                    **compression_args,
+                )
+    
+            # Zstd Compression
+            elif compression == "zstd":
+                zstd = import_optional_dependency("zstandard")
+                if "r" in ioargs.mode:
+                    open_args = {"dctx": zstd.ZstdDecompressor(**compression_args)}
+                else:
+                    open_args = {"cctx": zstd.ZstdCompressor(**compression_args)}
+                handle = zstd.open(
+                    handle,
+                    mode=ioargs.mode,
+                    **open_args,
+                )
+    
+            # Unrecognized Compression
+            else:
+                msg = f"Unrecognized compression type: {compression}"
+                raise ValueError(msg)
+    
+            assert not isinstance(handle, str)
+            handles.append(handle)
+    
+        elif isinstance(handle, str):
+            # Check whether the filename is to be opened in binary mode.
+            # Binary mode does not support 'encoding' and 'newline'.
+            if ioargs.encoding and "b" not in ioargs.mode:
+                # Encoding
+                handle = open(
+                    handle,
+                    ioargs.mode,
+                    encoding=ioargs.encoding,
+                    errors=errors,
+                    newline="",
+                )
+            else:
+                # Binary mode
+>               handle = open(handle, ioargs.mode)
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^
+E               FileNotFoundError: [Errno 2] No such file or directory: '/workspaces/dqe-automation/parquet_data/test_facility_name_min_time_spent_per_visit_date'
+
+../.venv/lib/python3.14/site-packages/pandas/io/common.py:939: FileNotFoundError
+______________________________ test_completeness _______________________________
+
+parquet_reader = <src.connectors.file_system.parquet_reader.ParquetReader object at 0x700a13456900>
+data_quality_library = <src.data_quality.data_quality_validation_library.DataQualityLibrary object at 0x700a1292d550>
+
+    @pytest.mark.parquet_data
+    def test_completeness(parquet_reader, data_quality_library):
+        target_path =  "/workspaces/dqe-automation/parquet_data/facility_type_avg_time_spent_per_visit_date"
+        target_data = parquet_reader.process(target_path)
+        expected_columns = ["facility_type", "visit_date", "avg_time_spent"]
+>       data_quality_library.check_completeness(target_data, expected_columns=expected_columns)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: 'DataQualityLibrary' object has no attribute 'check_completeness'
+
+tests/dq checks/parquet_files/test_facility_type_avg_time_spent_per_visit_date.py:14: AttributeError
+__________________________________ test_count __________________________________
+
+db_connection = None
+parquet_reader = <src.connectors.file_system.parquet_reader.ParquetReader object at 0x700a13456900>
+data_quality_library = <src.data_quality.data_quality_validation_library.DataQualityLibrary object at 0x700a1292d550>
+
+    @pytest.mark.parquet_data
+    def test_count(db_connection, parquet_reader, data_quality_library):
+        source_query = """
+            SELECT
+                f.facility_type,
+                CAST(v.visit_timestamp AS DATE) AS visit_date,
+                ROUND(CAST(AVG(v.duration_minutes) AS NUMERIC), 2) AS avg_time_spent
+            FROM facilities f
+            JOIN visits v ON f.id = v.facility_id
+            GROUP BY f.facility_type, CAST(v.visit_timestamp AS DATE)
+        """
+>       source_data = db_connection.get_data_sql(source_query)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: 'NoneType' object has no attribute 'get_data_sql'
+
+tests/dq checks/parquet_files/test_facility_type_avg_time_spent_per_visit_date.py:27: AttributeError
+______________________________ test_completeness _______________________________
+
+parquet_reader = <src.connectors.file_system.parquet_reader.ParquetReader object at 0x700a13456900>
+data_quality_library = <src.data_quality.data_quality_validation_library.DataQualityLibrary object at 0x700a1292d550>
+
+    @pytest.mark.parquet_data
+    def test_completeness(parquet_reader, data_quality_library):
+        target_path =  "/workspaces/dqe-automation/parquet_data/patient_sum_treatment_cost_per_facility_type"
+        target_data = parquet_reader.process(target_path)
+        expected_columns = ["facility_type", "full_name", "sum_treatment_cost"]
+>       data_quality_library.check_completeness(target_data, expected_columns=expected_columns)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: 'DataQualityLibrary' object has no attribute 'check_completeness'
+
+tests/dq checks/parquet_files/test_patient_sum_treatment_cost_per_facility_type.py:14: AttributeError
+__________________________________ test_count __________________________________
+
+db_connection = None
+parquet_reader = <src.connectors.file_system.parquet_reader.ParquetReader object at 0x700a13456900>
+data_quality_library = <src.data_quality.data_quality_validation_library.DataQualityLibrary object at 0x700a1292d550>
+
+    @pytest.mark.parquet_data
+    def test_count(db_connection, parquet_reader, data_quality_library):
+        source_query = """
+            SELECT
+                f.facility_type,
+                CONCAT(p.last_name, ' ', p.first_name) AS full_name,
+                SUM(v.treatment_cost) AS sum_treatment_cost
+            FROM visits v
+            JOIN facilities f ON v.facility_id = f.id
+            JOIN patients p ON v.patient_id = p.id
+            GROUP BY f.facility_type, p.last_name, p.first_name
+        """
+>       source_data = db_connection.get_data_sql(source_query)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: 'NoneType' object has no attribute 'get_data_sql'
+
+tests/dq checks/parquet_files/test_patient_sum_treatment_cost_per_facility_type.py:28: AttributeError
+_____________________________ test_not_null_values _____________________________
+
+parquet_reader = <src.connectors.file_system.parquet_reader.ParquetReader object at 0x700a13456900>
+data_quality_library = <src.data_quality.data_quality_validation_library.DataQualityLibrary object at 0x700a1292d550>
+
+    @pytest.mark.parquet_data
+    def test_not_null_values(parquet_reader, data_quality_library):
+        target_path =  "/workspaces/dqe-automation/parquet_data/patient_sum_treatment_cost_per_facility_type"
+        target_data = parquet_reader.process(target_path)
+        not_null_columns = ["facility_type", "full_name", "sum_treatment_cost"]
+>       data_quality_library.check_not_null_values(target_data, column_names=not_null_columns)
+
+tests/dq checks/parquet_files/test_patient_sum_treatment_cost_per_facility_type.py:44: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+df =    facility_type         full_name  sum_treatment_cost facility_type_partition
+0         Clinic      Amanda Berry     ...      Urgent_Care
+63   Urgent Care               NaN         26440493.58             Urgent_Care
+
+[64 rows x 4 columns]
+column_names = ['facility_type', 'full_name', 'sum_treatment_cost']
+
+    @staticmethod
+    def check_not_null_values(df, column_names=None):
+        if column_names:
+            for column in column_names:
+                null_count = df[column].isnull().sum()
+>               assert null_count == 0, f"DQ Fail - Found {null_count} null values in column: {column}"
+                       ^^^^^^^^^^^^^^^
+E               AssertionError: DQ Fail - Found 4 null values in column: full_name
+
+src/data_quality/data_quality_validation_library.py:40: AssertionError
+=========================== short test summary info ============================
+FAILED tests/dq checks/parquet_files/test_facility_name_min_time_spent_per_visit_date.py::test_smoke_and_not_empty
+FAILED tests/dq checks/parquet_files/test_facility_name_min_time_spent_per_visit_date.py::test_completeness
+FAILED tests/dq checks/parquet_files/test_facility_name_min_time_spent_per_visit_date.py::test_count
+FAILED tests/dq checks/parquet_files/test_facility_name_min_time_spent_per_visit_date.py::test_uniqueness
+FAILED tests/dq checks/parquet_files/test_facility_name_min_time_spent_per_visit_date.py::test_not_null_values
+FAILED tests/dq checks/parquet_files/test_facility_type_avg_time_spent_per_visit_date.py::test_completeness
+FAILED tests/dq checks/parquet_files/test_facility_type_avg_time_spent_per_visit_date.py::test_count
+FAILED tests/dq checks/parquet_files/test_patient_sum_treatment_cost_per_facility_type.py::test_completeness
+FAILED tests/dq checks/parquet_files/test_patient_sum_treatment_cost_per_facility_type.py::test_count
+FAILED tests/dq checks/parquet_files/test_patient_sum_treatment_cost_per_facility_type.py::test_not_null_values
+ERROR tests/dq checks/parquet_files/test_patient_sum_treatment_cost_per_facility_type.py::test_not_null_values
+==================== 10 failed, 5 passed, 1 error in 0.64s =====================
+
+=== 3. REPORT PUBLISH / ARCHIVE STAGE ===
+HTML Report generated and archived under html_report/report_task3.html

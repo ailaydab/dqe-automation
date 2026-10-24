@@ -6,14 +6,14 @@ Author(s): Name Surname
 
 import pytest
 
-
 @pytest.fixture(scope='module')
 def target_data(db_connection):
     target_query = """
-    SELECT ...
+    SELECT *
+    FROM target_table
     """
     target_data = db_connection.get_data_sql(target_query)
-    return target_data
+    return target_data 
 
 
 @pytest.fixture(scope='module')
