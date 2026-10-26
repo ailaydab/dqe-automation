@@ -36,7 +36,7 @@ def test_email_column_valid(csv_data):
     "target_id, expected_is_active",[(1, False),(2, True)],
 )
 def test_active_players(csv_data, target_id, expected_is_active):
-    row = csv_data["df"][csv_data["df"]["id"] == id]
+    row = csv_data["df"][csv_data["df"]["id"] == target_id]
     assert not row.empty, f"No data found for id: {target_id}"
     assert row["is_active"].values[0] == expected_is_active
 
