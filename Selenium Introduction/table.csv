@@ -1,0 +1,21 @@
+Specialty Center,2026-10-02,39
+Hospital,2026-10-02,45
+Clinic,2026-10-02,25
+Specialty Center,2026-10-01,18
+Hospital,2026-10-01,48
+Clinic,2026-10-01,46.67
+Specialty Center,2026-09-30,35.75
+Hospital,2026-09-30,30
+Clinic,2026-09-30,48
+Specialty Center,2026-09-29,31
+Hospital,2026-09-29,55.5
+Clinic,2026-09-29,39
+Hospital,2026-09-28,45
+Clinic,2026-09-28,45.5
+Specialty Center,2026-09-27,31
+Hospital,2026-09-27,29.33
+Clinic,2026-09-27,37.5
+Specialty Center,2026-09-26,34
+Hospital,2026-09-26,51
+Clinic,2026-09-26,27
+Facility Type,Visit Date,Average Time Spent
