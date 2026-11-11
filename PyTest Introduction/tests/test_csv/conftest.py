@@ -5,7 +5,7 @@ import pathlib
 # Fixture to read the CSV file
 @pytest.fixture(scope="session")
 def csv_data():
-    base_path = pathlib.Path(__file__).parent.parent
+    base_path = pathlib.Path(__file__).parent.parent.parent
     file_path = base_path / "src" / "data" / "data.csv"
     df = pd.read_csv(file_path)
     return {"df": df, "file_path": str(file_path)}
